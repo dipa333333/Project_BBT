@@ -7,6 +7,7 @@ use App\Models\Setting; // model untuk tabel settings
 
 class SettingsController extends Controller
 {
+
     public function index()
     {
         $settings = Setting::first(); // ambil data pertama saja

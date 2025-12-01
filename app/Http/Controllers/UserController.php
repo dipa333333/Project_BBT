@@ -5,8 +5,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @method \Illuminate\Routing\PendingResourceRegistration middleware(array|string $middleware)
+ */
+
 class UserController extends Controller
 {
+
     public function index()
     {
         $users = User::all();
