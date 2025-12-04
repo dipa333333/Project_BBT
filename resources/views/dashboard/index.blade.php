@@ -4,7 +4,7 @@
 
 <div class="container mx-auto px-4 py-6">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Dashboard Sistem (Live Monitor)</h2>
+        <h2 class="text-3xl font-bold text-blue-700">Dashboard Sistem (Live Monitor)</h2>
         <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold flex items-center">
             <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
             Realtime Active

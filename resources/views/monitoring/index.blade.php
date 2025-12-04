@@ -7,7 +7,7 @@
     <!-- HEADER SECTION -->
     <div class="flex justify-between items-center mb-8">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800">Monitoring Realtime</h2>
+            <h2 class="text-3xl font-bold text-blue-700">Monitoring Realtime</h2>
             <p class="text-sm text-gray-500">Pemantauan langsung parameter sensor lapangan.</p>
         </div>
         <div class="flex items-center space-x-3">

@@ -6,7 +6,7 @@
     <!-- Header & Action -->
     <div class="flex justify-between items-center mb-6">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800">Manajemen Sensor</h2>
+            <h2 class="text-3xl font-bold text-blue-700">Manajemen Sensor</h2>
             <p class="text-sm text-gray-500">Daftar perangkat IoT yang terhubung ke sistem.</p>
         </div>
         <a href="{{ route('sensor.create') }}"
