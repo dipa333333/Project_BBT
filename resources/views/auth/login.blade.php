@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <!-- Load Lucide Icons (Untuk icon mata password) -->
+    <!-- Load Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -94,7 +94,7 @@
         .mascot-container {
             position: relative;
             width: 140px; height: 140px;
-            margin-bottom: -40px; /* Overlap dengan card sedikit */
+            margin-bottom: -40px;
             z-index: 20;
             border-radius: 50%;
             background: radial-gradient(circle, #ffffff 20%, #e9f8ff 70%, #bfe7ff 100%);
@@ -140,7 +140,6 @@
         }
 
         /* --- MASCOT STATES --- */
-        /* Shy Mode (Tutup Mata) */
         .mascot-container.shy .eye {
             height: 4px;
             margin-top: 10px;
@@ -151,11 +150,11 @@
 
         /* Peek Mode (Mengintip/Kaget) */
         .mascot-container.peek .eye {
-            height: 26px; width: 26px; /* Mata membesar */
+            height: 26px; width: 26px;
             border-color: #00C6FF;
         }
         .mascot-container.peek .mascot-img {
-            transform: translateY(-5px); /* Sedikit loncat */
+            transform: translateY(-5px);
         }
 
         @keyframes float {
@@ -165,12 +164,12 @@
 
         /* --- LOGIN CARD --- */
         .login-card {
-            background: rgba(255, 255, 255, 0.15); /* Sedikit lebih terang */
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 24px;
-            padding: 50px 40px 30px 40px; /* Padding atas besar utk maskot */
+            padding: 50px 40px 30px 40px;
             width: 90%;
             max-width: 380px;
             text-align: center;
@@ -197,7 +196,7 @@
 
         .input-field {
             width: 100%;
-            padding: 14px 45px 14px 16px; /* Kanan padding besar utk icon mata */
+            padding: 14px 45px 14px 16px;
             background: rgba(255,255,255,0.25);
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 12px;
@@ -404,12 +403,11 @@
                         mascot.classList.add('shy');
                     }
                 }
-                lucide.createIcons(); // Re-render icon baru
+                lucide.createIcons();
             });
 
             // Focus Logic
             pwdInput.addEventListener('focus', () => {
-                // Hanya tutup mata jika password tersembunyi
                 if(pwdInput.getAttribute('type') === 'password') {
                     mascot.classList.add('shy');
                 }

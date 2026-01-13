@@ -85,7 +85,7 @@
             <div class="h-16 flex items-center justify-between px-6 border-b border-gray-100 sidebar-header shrink-0">
                 <h1 class="text-xl font-bold text-blue-600 tracking-tight flex items-center gap-2">
                     <i data-lucide="droplets" class="w-6 h-6"></i>
-                    <span>HydroMon</span>
+                    <span>SMGW</span>
                 </h1>
                 <button id="toggleBtn" class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition">
                     <i data-lucide="align-left" class="w-5 h-5"></i>
@@ -250,7 +250,6 @@
         openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
         cancelBtn.addEventListener("click", () => modal.classList.add("hidden"));
 
-        // Tutup modal jika klik di luar
         modal.addEventListener("click", (e) => {
             if(e.target === modal) modal.classList.add("hidden");
         });
