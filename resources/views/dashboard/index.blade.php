@@ -50,97 +50,81 @@
     </div>
 </div>
 
-{{-- Pastikan Chart.js sudah diload. Uncomment jika belum ada di layout --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById('chartAir').getContext('2d');
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('chartAir').getContext('2d');
 
-    // --- SETUP DATA ---
-    // Menggunakan directive json untuk parsing data PHP ke JS dengan aman
-    var initialLabels = @json($labels);
-    var initialValues = @json($values);
-    var rawPemakaian = @json($pemakaianHariIni);
-
-    // Konversi nilai pemakaian ke Float (hapus koma jika format ribuan, misal "1,200")
-    var currentTotal = parseFloat(String(rawPemakaian).replace(/,/g, '')) || 0;
-
-    // Setup Grafik
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: initialLabels,
-            datasets: [{
-                label: 'Debit Air (Liter/menit)',
-                data: initialValues,
-                borderColor: 'rgba(6, 182, 212, 1)', // Warna Cyan
-                backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                borderWidth: 2,
-                pointRadius: 3,
-                pointBackgroundColor: '#fff',
-                pointBorderColor: 'rgba(6, 182, 212, 1)',
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                intersect: false,
-                mode: 'index',
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Debit Air (Liter/menit)',
+                    data: [],
+                    borderColor: 'rgba(6, 182, 212, 1)',
+                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        borderDash: [2, 4],
-                        color: '#f3f4f6'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 0 },
+                scales: {
+                    y: { beginAtZero: true }
                 }
-            },
-            animation: {
-                duration: 0 // Matikan animasi default agar pergerakan mulus
+            }
+        });
+
+        async function loadChart() {
+            try {
+                const response = await fetch("{{ url('/api/monitoring/chart') }}");
+                const result = await response.json();
+
+                const labels = result.data.map(item => {
+                    const date = new Date(item.created_at);
+                    return date.toLocaleTimeString();
+                });
+
+                const values = result.data.map(item => item.flow_rate ?? item.value);
+
+                chart.data.labels = labels;
+                chart.data.datasets[0].data = values;
+                chart.update();
+            } catch (error) {
+                console.error("Error load chart:", error);
             }
         }
+
+        async function loadLatest() {
+            try {
+                const response = await fetch("{{ url('/api/monitoring/latest') }}");
+                const result = await response.json();
+
+                if (result.data) {
+                    document.getElementById('pemakaian-text').innerText =
+                         parseFloat(result.data.total_volume ?? 0).toFixed(2);
+                }
+            } catch (error) {
+                console.error("Error load latest:", error);
+            }
+        }
+
+        function startRealtime() {
+            loadChart();
+            loadLatest();
+
+            setInterval(() => {
+                fetch("{{ url('/api/simulate/flow') }}");
+                loadChart();
+                loadLatest();
+            }, 8000); // update tiap 5 detik
+        }
+
+        startRealtime();
     });
-
-    // Logika Real-time
-    setInterval(function() {
-        // Generate data palsu
-        var randomValue = Math.floor(Math.random() * (50 - 10 + 1)) + 10;
-
-        var now = new Date();
-        var timeLabel = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-
-        // Update Data Grafik
-        chart.data.labels.push(timeLabel);
-        chart.data.datasets[0].data.push(randomValue);
-
-        // Batasi hanya 20 data yang tampil
-        if (chart.data.labels.length > 20) {
-            chart.data.labels.shift();
-            chart.data.datasets[0].data.shift();
-        }
-
-        chart.update();
-
-        // Update Angka Pemakaian di Card
-        currentTotal += (randomValue / 60);
-
-        var element = document.getElementById('pemakaian-text');
-        if(element) {
-            element.innerText = currentTotal.toFixed(2);
-        }
-
-    }, 2000);
-});
-</script>
+    </script>
 
 @endsection

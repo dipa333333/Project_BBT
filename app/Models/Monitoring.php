@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Monitoring extends Model
 {
-    protected $fillable = ['sensor_id', 'value'];
+    protected $fillable = ['sensor_id', 'value', 'flow_rate', 'total_volume'];
 
     public function sensor()
     {

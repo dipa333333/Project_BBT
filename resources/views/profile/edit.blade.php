@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2 class="text-2xl font-bold mb-4">Profil Saya</h2>
+<h2 class="text-3xl font-bold text-blue-700 flex items-center gap-2">Profil Saya</h2>
 
 @if (session('status') === 'profile-updated')
     <div class="bg-green-100 text-green-700 p-3 rounded mb-4">

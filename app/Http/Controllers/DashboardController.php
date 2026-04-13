@@ -14,7 +14,7 @@ class DashboardController extends Controller
             'sensorAktif'       => Sensor::where('status', 'aktif')->count(),
             'sensorNonAktif'    => Sensor::where('status', 'nonaktif')->count(),
 
-            'pemakaianHariIni'  => Monitoring::sum('value'),
+            'pemakaianHariIni' => Monitoring::latest()->value('total_volume') ?? 0,
 
             'labels' => ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
             'values' => [150, 200, 180, 220, 240, 260, 210],

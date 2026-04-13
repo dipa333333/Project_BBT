@@ -139,19 +139,19 @@
                 datasets: [{
                     label: 'Debit (LPM)',
                     data: chartData,
-                    borderColor: '#3b82f6', // Blue-500
+                    borderColor: '#3b82f6', 
                     backgroundColor: gradient,
                     borderWidth: 2,
-                    pointRadius: 0, // Hilangkan titik agar garis mulus seperti EKG
+                    pointRadius: 0,
                     pointHoverRadius: 4,
                     fill: true,
-                    tension: 0.4 // Smooth curve
+                    tension: 0.4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: false, // Matikan animasi default agar update realtime cepat
+                animation: false,
                 interaction: {
                     intersect: false,
                     mode: 'index',
@@ -216,7 +216,7 @@
 
             chart.update(); // Render ulang grafik
 
-        }, 1000); // Update setiap 1 detik (1000ms)
+        }, 3000); // Update setiap 1 detik (1000ms)
     });
 </script>
 
